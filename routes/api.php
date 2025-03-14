@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AirportController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PassengerController;
@@ -33,10 +34,14 @@ Route::post('airports', [AirportController::class, 'store']);
 
 Route::get('airports', [AirportController::class, 'index']);
 
-Route::post('flights', [FlightController::class, 'store'])
-    ->middleware('auth:api');
+Route::post('flights', [FlightController::class, 'store']);
+    
 
 Route::get('flights', [FlightController::class, 'index']);
+
+
+//get availabel flights 
+Route::get('flights/select/list', [FlightController::class, 'availableFlights']);
 
 //SHOW
 Route::get('flights/{flight}', [FlightController::class, 'show']);
@@ -55,6 +60,9 @@ Route::get('vue', function(){
 });
 //delete flights
 Route::delete('flights/{flight}', [FlightController::class,'destroy']);
+
+//book flight 
+Route::post('flight/book', [BookingController::class, 'store']);
 
 //delete airports
 Route::delete('airports/{airport}', [AirportController::class, 'destroy']);

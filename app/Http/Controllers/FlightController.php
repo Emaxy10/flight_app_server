@@ -6,6 +6,7 @@ use App\Models\Flight;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreFlightRequest;
 use App\Http\Requests\UpdateFlightRequest;
+use Illuminate\Http\Request;
 
 class FlightController extends Controller
 {
@@ -59,9 +60,22 @@ class FlightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function availableFlights(Request $request)
     {
-        //
+        $departure = $request->input('departure');
+        $arrival = $request->input('arrival');
+        $departure_date  = $request->input('departure_date');
+
+
+        // $flights = Flight::where('departure_id', $departure)
+        //             ->where('arrival_id', $arrival)->get();
+
+        $flights = Flight::with(['departureAirport', 'arrivalAirport'])
+                            ->where('departure_id', $departure)
+                            ->where('departure_date', $departure_date)
+                            ->where('arrival_id', $arrival)->get();
+            
+            return response()->json($flights);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AirportController;
 
 /*
@@ -17,3 +18,5 @@ use App\Http\Controllers\AirportController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('login', [UserController::class, 'login']);

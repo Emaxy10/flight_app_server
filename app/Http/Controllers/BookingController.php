@@ -38,24 +38,17 @@ class BookingController extends Controller
     public function store(StoreBookingRequest $request)
     {
         //
-        $request->validate([
-            'passenger_name' => ['required', 'max:255'],
-            'flight_id' => ['required'],
-            'email' => ['required'],
-            // 'departure_id' => ['required'],
-            // 'arrival_id' => ['required'],
-            // 'origin_code' => ['required', 'min:3'],
-            // 'departure_code' => ['required', 'min:3'],
-            // 'arrival_code' => ['required', 'min:3'],
-            // 'departure_date' => ['required'],
-            // 'departure_time' => ['required'],
-            // 'arrival_date' => ['required'],
-            // 'arrival_time' => ['required'],
-            // 'flight_code' => ['required'],
 
+        $booking = Booking::create([
+            "flight_id" => $request->flight_id,
+            "passenger" => $request->passenger,
+            "email"=> $request->email,
+            "class" => $request->class,
+            "contact" => $request->contact,
+            "price" => $request->price
         ]);
 
-        $flight = Flight::where('id', $request->flight_id)->get();
+        return response()->json($booking);
 
 
     }
@@ -69,6 +62,7 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         //
+        
     }
 
     /**

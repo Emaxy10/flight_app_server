@@ -13,7 +13,7 @@ class StoreBookingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,12 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             //
+            "flight_id" => ['required'],
+            "email"=> ['required'],
+            'passenger' => ['required', 'max:255'],
+            'contact' => ['required'],
+            'class' =>['required'],
+            'price' => ['required']
         ];
     }
 }
